@@ -54,7 +54,15 @@
 
                                     <li class=""><a href="account-message-inbox.html"><i
                                             class="icon-mail"></i> Message Inbox <span
-                                            class="badge">15</span></a></li>
+                                            class="badge">15</span></a>
+                                    </li>
+
+                                    <li><a href="{{ route('ads.alert') }}"><i class="icon-folder-close"></i>
+                                        Alerts 
+                                        <span class="badge badge-secondary">42</span>
+                                    </a></li> 
+        
+        
                                 </ul>
                             </div>
                         </div>

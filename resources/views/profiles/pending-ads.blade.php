@@ -66,10 +66,10 @@
                                         <td style="width:14%" class="add-img-td">
 
                                             @if ($job->image)
-                                                <a href="ads-details.html"><img class="thumbnail  img-responsive"
+                                                <a href="{{ route('jobs.show', $job->id) }}"><img class="thumbnail  img-responsive"
                                                         src="{{ asset('storage') . '/' . $job->image }}" alt="img"></a>
                                             @else
-                                                <a href=""><img alt="img"
+                                                <a href="{{ route('jobs.show', $job->id) }}"><img alt="img"
                                                         src="{{ asset('storage') . '/' . $job->category->image }}"
                                                         class="thumbnail  img-responsive" alt="img"></a>
                                             @endif
@@ -77,7 +77,7 @@
                                         </td>
                                         <td style="width:58%" class="ads-details-td">
                                             <div>
-                                                <p><strong> <a href="ads-details.html"
+                                                <p><strong> <a href="{{ route('jobs.show', $job->id) }}"
                                                             title="Sony Xperia TX ">{{ $job->title }}
                                                         </a> </strong></p>
                                                 <p><strong> Posted On </strong>:
@@ -85,6 +85,14 @@
                                                 <p><strong>Visitors </strong>: 221 <strong>Located In:</strong>
                                                     {{ $job->city->name }}
                                                 </p>
+                                                @if ($job->premium)
+                                                <span class="d-flex justify-content-end">
+                                                    <p class="p-1 position-absolute text-center text-small"
+                                                        style="background: gold; width:100px; margin-top:100px; border-radius: 5px">
+                                                        Premium</p>
+                                                </span>
+                                            @endif
+
                                             </div>
                                         </td>
                                         <td style="width:16%" class="price-td">

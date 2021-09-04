@@ -12,8 +12,11 @@
                         <div class="panel-intro text-center">
                             <h2 class="logo-title">
                                 <!-- Original Logo will be placed here  -->
-                                <span class="logo-icon"><i class="icon icon-search-1 ln-shadow-logo shape-0"></i>
-                                </span> JOB<span>CLASSIFIED </span>
+                                {{-- <span class="logo-icon"><i class="icon icon-search-1 ln-shadow-logo shape-0"></i>
+                                </span> JOB<span>CLASSIFIED </span>  --}}
+
+                                <span class="logo-icon"><i class="fas fa-search-location"></i><i class="icon icon-search-1 ln-shadow-logo bg-danger "></i>
+                                </span><span class="text-dark">FindJob</span> </a> 
                             </h2>
                         </div>
                         <div class="card-body">

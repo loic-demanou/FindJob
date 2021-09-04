@@ -3,9 +3,9 @@
     <!-- Sidebar header -->
     <div class="sidebar-header">
         <a href="{{ route('home') }}" class="logo">
-            <img src="../img/logo-white.svg" alt="Logo" id="main-logo">
-            BluePush
-        </a>
+            <span class="logo-icon"><i class="fas fa-search-location"></i><i class="icon icon-search-1 ln-shadow-logo bg-danger "></i>
+            </span><span class="text-white">FindJob</span> </a>
+    </a>
         <a href="#" class="nav-link nav-icon rounded-circle ml-auto" data-toggle="sidebar">
             <i class="material-icons">close</i>
         </a>

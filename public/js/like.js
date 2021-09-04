@@ -12,7 +12,7 @@ forms.forEach(form => {
 
         const count = this.querySelector('#count-js');
 
-        const like = this.querySelector('#plein');
+        const like = this.querySelector('#like');
 
 
         fetch(url, {
@@ -20,7 +20,7 @@ forms.forEach(form => {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': token
             },
-            method: 'post',
+            method: 'post', 
             body: JSON.stringify({
                 id: jobId
             })
@@ -28,11 +28,12 @@ forms.forEach(form => {
         }).then(response => {
             response.json().then(data => {
                 count.innerHTML = data.count;
-                // like.innerHTML = "sssaveddd";
+                like.innerHTML = data.like;
                 // return response->json(['error'=>'Unauthorized', 'message'=>'vous devez etre connecté'], 401);
             })
         }).catch(error => {
             console.log(error)
+            alert(error);
         });
 
     });
@@ -219,7 +220,7 @@ $(document).ready(function () {
     });
 });
 $(document).ready(function () {
-    $('#search-category').change(function (e) {
+    $('#search-category').change(function (e) { 
         var cato = $(this).val()
         console.log(cato);
         $.ajax({
@@ -287,7 +288,8 @@ $(document).ready(function () {
             data: "Hcity=" + homecity + '&Htitle=' +hometext,
             success: function (response) {
                 console.log(response);
-                $('#homeresult').html(response);
+                $('#updateDiv').html(response);
+                // $('#homeresult').html(response);
             }
         });    
 
@@ -295,22 +297,67 @@ $(document).ready(function () {
 });
 
 
-// $(document).ready(function () {
-//     var text = $('#searchbar').val()
-//     var cat = $('#search-category').val();
-//     var loc = $('#id-location').val();
-// if () {
-        
-//     } else {
-        
-//     }
-// });
+$(document).ready(function () {
+    $('#BtnSalary').click(function (e) {
+        e.preventDefault();
+        var maxSalary = $('#maxSalary').val()
+        var minSalary = $('#minSalary').val();
+        // var loc = $('#id-location').val();
 
+        console.log(maxSalary);
+        console.log(minSalary);
+        $.ajax({
+            type: 'get',
+            dataType: 'html',
+            url: '',
+            beforeSend: function () { 
+                $('#loader').show();
+            },
+            complete: function () { 
+                $('#loader').hide();
+            },    
+            data: "minSalary=" + minSalary + '&maxSalary=' +maxSalary,
+            success: function (response) {
+                console.log(response);
+                $('#updateDiv').html(response);
+                // $('#homeresult').html(response);
+            }
+        });    
 
+    });
+});
 
-$(selector).change(function (e) { 
-    e.preventDefault();
+$(document).ready(function () {
+    $('.filterCity').click(function (e) {
+        // e.preventDefault();
+        var city = $(this).val()
+        console.log(city);
+
+        // $('.try').each(function () {
+        //     if ($(this).is(":checked")) {
+        //         brand.push($(this).val());
+        //     }
+        // });
     
+        $.ajax({
+            type: 'get',
+            dataType: 'html',
+            url: '',
+            beforeSend: function () { 
+                $('#loader').show();
+            },
+            complete: function () { 
+                $('#loader').hide();
+            },    
+            data: "filterCity=" + city,
+            success: function (response) {
+                console.log(response);
+                $('#updateDiv').html(response);
+                // $('#homeresult').html(response);
+            }
+        });    
+
+    });
 });
 
 
@@ -352,3 +399,23 @@ $(selector).change(function (e) {
 //         }
 //     });
 // });
+
+$(document).ready(function () {
+    $('.optionsRadios1').click(function(e) {
+        console.log('chek1');
+        $('.optionsday1').prop("checked", true);
+      });
+});
+$(document).ready(function () {
+    $('.optionsRadios2').click(function(e) {
+        console.log('chek2');
+        $('.optionsday2').prop("checked", true);
+      });
+});
+$(document).ready(function () {
+    $('.optionsRadios3').click(function(e) {
+        console.log('Check3');
+        $('.optionsday3').prop("checked", true);
+      });
+});
+

@@ -1,6 +1,19 @@
 @extends('layouts.app')
 @section('content')
 
+
+    @foreach (Auth::user()->roles as $role)
+        @if ($role->name == 'Admin')
+            <a href="{{ route('jobs.index') }}">
+            <div class="d-block"
+                style="position: absolute; margin-left:3%; text-align:center; height: 110px; width:110px; background:skyblue; border-radius:50%">
+                <i class="fas fa-home  justify-content-center" style="font-size: 80px"></i>
+                <small>Return to admin space</small>
+            </div>
+        </a>
+        @endif
+    @endforeach
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -12,7 +25,7 @@
                     </ol>
                 </nav>
                 <div class="pull-right backtolist"><a href="javascript:history.go(-1)"> <i
-                        class="fa fa-angle-double-left"></i> {{ __('home.back') }}</a></div>
+                            class="fa fa-angle-double-left"></i> {{ __('home.back') }}</a></div>
             </div>
         </div>
 
@@ -22,9 +35,10 @@
             <div class="col-md-9 page-content col-thin-right">
                 <div class="inner inner-box ads-details-wrapper">
                     <h2> {{ $job->title }} </h2>
-                    <span class="info-row"> <span class="date"><i class=" icon-clock"> </i> {{ __('posted') }}: {{ $job->created_at->format('Y-m-d : h:m') }}</span> - <span
-                            class=""> {{ $job->jobtype->name }} </span> - <span class="item-location"><i
-                            class="fa fa-map-marker-alt"></i> {{ $job->city->name }} </span> </span>
+                    <span class="info-row"> <span class="date"><i class=" icon-clock"> </i> {{ __('posted') }}:
+                            {{ $job->created_at->format('Y-m-d : h:m') }}</span> - <span class="">
+                            {{ $job->jobtype->name }} </span> - <span class="item-location"><i
+                                class="fa fa-map-marker-alt"></i> {{ $job->city->name }} </span> </span>
 
                     <div class="Ads-Details ">
                         <div class="row">
@@ -35,18 +49,24 @@
                                 <aside class="panel panel-body panel-details job-summery">
                                     <ul>
 
-                                        <li><p class=" no-margin "><strong>{{ __('home.category') }}:</strong> {{ $job->category->name }} </p></li>
+                                        <li>
+                                            <p class=" no-margin "><strong>{{ __('home.category') }}:</strong>
+                                                {{ $job->category->name }} </p>
+                                        </li>
                                         {{-- <li><p class=" no-margin "><strong>Start Date:</strong> ASAP </p></li> --}}
                                         {{-- <li><p class=" no-margin "><strong>Company:</strong> {{ $job->user->name }} </p>
                                         </li> --}}
                                         <li>
-                                            <p class=" no-margin "><strong>{{ __('home.salary') }}:</strong> {{ $job->salary }} a {{ $job->salarytype->name }}</p>
+                                            <p class=" no-margin "><strong>{{ __('home.salary') }}:</strong>
+                                                {{ $job->salary }} a {{ $job->salarytype->name }}</p>
                                         </li>
                                         <li>
-                                            <p class="no-margin"><strong>{{ __('home.Work_type') }}:</strong> {{ $job->jobtype->name }}</p>
+                                            <p class="no-margin"><strong>{{ __('home.Work_type') }}:</strong>
+                                                {{ $job->jobtype->name }}</p>
                                         </li>
                                         <li>
-                                            <p class="no-margin"><strong>{{ __('home.location') }}:</strong> {{ $job->city->name }} </p>
+                                            <p class="no-margin"><strong>{{ __('home.location') }}:</strong>
+                                                {{ $job->city->name }} </p>
                                         </li>
 
 
@@ -88,7 +108,8 @@
                                                 src="images/jobs/company-logos/17.jpg"> </a></div> --}}
                                     <h3 class="no-margin"> {{ $job->user->name }}</h3><br>
                                     <p>{{ __('home.location') }} : <strong>{{ $job->city->name }}</strong></p><br>
-                                    <p>{{ __('home.About_him') }} : <strong>{{ $job->user->about_yourself }}</strong></p>
+                                    <p>{{ __('home.About_him') }} : <strong>{{ $job->user->about_yourself }}</strong>
+                                    </p>
 
                                     {{-- <p> Web: <strong>www.demoweb.com</strong></p> --}}
                                 </div>
@@ -107,7 +128,7 @@
                                     <li> {{ __('home.showcase') }}</li>
                                 </ul>
                                 <p><a class="pull-right" href="#"> {{ __('home.know_more') }} <i
-                                        class="fa fa-angle-double-right"></i> </a></p>
+                                            class="fa fa-angle-double-right"></i> </a></p>
                             </div>
                         </div>
                     </div>
@@ -117,5 +138,6 @@
             <!--/.page-side-bar-->
         </div>
     </div>
+
 
 @endsection

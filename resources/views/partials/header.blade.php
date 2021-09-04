@@ -1,11 +1,10 @@
 <div class="header">
-    <nav class="navbar navbar-site navbar-light bg-light navbar-expand-md" role="navigation">
+    <nav class="navbar navbar-site navbar-light navbar-expand-md" style="background: #1D4354" role="navigation">
         <div class="container">
-
 
             <a href="{{ route('home') }}" class="navbar-brand logo logo-title">
                 <span class="logo-icon"><i class="fas fa-search-location"></i><i class="icon icon-search-1 ln-shadow-logo bg-danger "></i>
-                </span><span>FindJob</span> </a>
+                </span><span class="text-white">FindJob</span> </a> 
 
             <button class="flag-menu country-flag d-block d-sm-none btn btn-secondary hidden"
                 href="#select-country" data-toggle="modal"> <span class="flag-icon flag-icon-us"></span> <span
@@ -19,7 +18,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-left">
 
-                    <li class="nav-item"><a class="nav-link" href="{{ route('jobs.index') }}">{{ __('headerClient.browse') }}</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{{ route('jobs.index') }}">{{ __('headerClient.browse') }}</a></li>
                     {{-- <li class="nav-item"><a class="nav-link" href="job-signup.html">Add Resume</a></li> --}}
 
                 </ul>
@@ -28,15 +27,19 @@
                         <li class="nav-item">
                             @include('partials.notificationsUser')
                         </li>
-                    @endauth
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ route('jobs.index') }}">Credit: {{ number_format(Auth::user()->credit->solde, 0, ',', '.') }} XAF</a>
+                        </li>
+                        @endauth
 
                     @guest
                         
-                    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link"><i class="fas fa-sign-in-alt"></i>
+                    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link text-white"><i class="fas fa-sign-in-alt mr-1"></i>
                         {{-- <li class="nav-item"><a href="category.html" class="nav-link"><i class="icon-th-thumb"></i> --}}
                             {{ __('features.login') }}</a>
                     </li>
-                    <li class="nav-item"><a href="{{ route('register') }}" class="nav-link"><i class="fas fa-user"></i>
+                    <li class="nav-item"><a href="{{ route('register') }}" class="nav-link text-white"><i class="fas fa-user mr-1"></i>
                         {{-- <li class="nav-item"><a href="category.html" class="nav-link"><i class="icon-th-thumb"></i> --}}
                             {{ __('home.register') }}</a>
                     </li>
@@ -50,7 +53,7 @@
                         </li>
                     @endguest --}}
                     @auth
-                    <li class="dropdown no-arrow nav-item"><a href="#" class="dropdown-toggle nav-link"
+                    <li class="dropdown no-arrow nav-item"><a href="#" class="dropdown-toggle nav-link text-white"
                             data-toggle="dropdown">
 
                             <span>{{ Auth::user()->name }}</span> <i class="icon-user fa"></i> <i
@@ -83,6 +86,11 @@
                             <li class="dropdown-item"><a href="statements.html"><i class=" icon-money "></i>
                                     Payment history </a>
                             </li>
+
+                            <li class="dropdown-item"><a href="{{ route('ads.alert') }}"><i class="fas fa-exclamation-triangle"></i>
+                                Alerts </a>
+                            </li>
+
 
                             <li class="dropdown-item"><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();"><i class=" icon-logout "></i> {{ __('headerClient.Logout') }}

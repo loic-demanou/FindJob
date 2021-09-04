@@ -7,8 +7,8 @@
 
                 <p class="sub animateme fittext3 animated fadeIn"> {{ __('home.find_latest') }}
                 </p>
-                <form action="#">
-                    {{-- <form action="{{ route('jobs.searchHome') }}"> --}}
+                {{-- <form action="#"> --}}
+                    <form action="{{ route('jobs.searchHome') }}">
 
                     <div class="row search-row animated fadeInUp">
 
@@ -16,7 +16,7 @@
                             <div class="search-col-inner">
                                 <i class="icon-location-2 icon-append ml-4"></i>
                                 
-                                    <select name="city" id="homecity" 
+                                    <select name="city" 
                                     class="form-control selecter locinput input-rel searchtag-input has-icon">
                                     @foreach ($cities as $city)
                                         <option selected="selected" value="{{ $city->id }}">{{ $city->name }}</option>
@@ -31,12 +31,12 @@
                         </div>
                         <div class="col-xl-4 col-sm-4 search-col relative">
                             <div class="search-col-inner"><i class="icon-docs icon-append" style="margin-left: 118px"></i>
-                                <input type="text" name="ads" class="form-control has-icon" id="hometext"
+                                <input type="text" name="ads" class="form-control has-icon"
                                     placeholder="{{ __('home.keyword') }}" value="">
                             </div>
                         </div>
                         <div class="col-xl-4 col-sm-4 search-col">
-                            <button class="btn btn-primary btn-search btn-block  btn-gradient" id="homeFindBtn"><i
+                            <button class="btn btn-primary btn-search btn-block  btn-gradient"><i
                                     class="icon-search"></i><strong>{{ __('home.find_button') }}</strong></button>
                         </div>
                     </div>

@@ -63,7 +63,7 @@
                                             </a></td>
                                         <td style="width:58%" class="ads-details-td">
                                             <div>
-                                                <p><strong> <a href="ads-details.html" title="SAMSUNG GALAXY S CORE Duos ">
+                                                <p><strong> <a href="{{ route('jobs.show', $like->job->id) }}" title="SAMSUNG GALAXY S CORE Duos ">
                                                             {{ $like->job->title }}</a> </strong></p>
 
                                                 <p><strong> Posted On </strong>:

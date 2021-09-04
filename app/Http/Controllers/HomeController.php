@@ -44,7 +44,9 @@ class HomeController extends Controller
             ->orWhere('description', 'like', "%$title%")
             ->latest()->get();
             // dd($jobs);
-            return view('jobs.searchAjaxCheckResult', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));    
+            // return view('jobs.index', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities')); 
+            return redirect()->route('jobs.index');
+               
         }elseif (isset($request->Hcity) or isset($request->Htitle)) {
             
             $city = $request->Hcity; 

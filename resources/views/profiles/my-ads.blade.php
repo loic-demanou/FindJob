@@ -2,18 +2,35 @@
 @section('content-sidebar')
 
     <div class="col-md-9 page-content">
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success fade show" role="alert">
-                <button class="btn btn-sm btn-icon btn-faded-success btn-close" type="button" data-dismiss="alert"><i
-                        class="material-icons">close</i></button>
-                <div class="media">
-                    <i class="material-icons">check_circle_outline</i>
-                    <div class="media-body ml-2">
-                        <strong>Well Done!</strong> {{ $message }}
-                    </div>
-                </div>
+
+        @if (session()->has('notification.message'))
+            <div class="alert alert-{{ session('notification.type') }}">
+                {{ session('notification.message') }}
             </div>
         @endif
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Well Done!</strong> {{ $message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @elseif ($message = Session::get('warning'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Warning!</strong> {{ $message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @elseif ($message = Session::get('danger'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> {{ $message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
 
         <div class="inner-box">
             <h2 class="title-2"><i class="icon-docs"></i> {{ __('sidebarClient.my_ads') }} </h2>
@@ -55,7 +72,6 @@
                             </thead>
                             <tbody>
                                 @foreach ($jobs as $job)
-
                                     <tr>
                                         <td style="width:2%" class="add-img-selector">
                                             <div class="checkbox">
@@ -66,10 +82,11 @@
                                         </td>
                                         <td style="width:14%" class="add-img-td">
                                             @if ($job->image)
-                                                <a href="ads-details.html"><img class="thumbnail  img-responsive"
+                                                <a href="{{ route('jobs.show', $job->id) }}"><img
+                                                        class="thumbnail  img-responsive"
                                                         src="{{ asset('storage') . '/' . $job->image }}" alt="img"></a>
                                             @else
-                                                <a href=""><img alt="img"
+                                                <a href="{{ route('jobs.show', $job->id) }}"><img alt="img"
                                                         src="{{ asset('storage') . '/' . $job->category->image }}"
                                                         class="thumbnail  img-responsive"></a>
                                             @endif
@@ -83,12 +100,28 @@
                                                 <p><strong>Visitors </strong>: 221 <strong>Located In:</strong>
                                                     {{ $job->city->name }}
                                                 </p>
+                                                @if ($job->premium)
+                                                    <span class="d-flex justify-content-end">
+                                                        <p class="p-1 position-absolute text-center text-small"
+                                                            style="background: gold; width:100px; margin-top:100px; border-radius: 5px">
+                                                            Premium</p>
+                                                    </span>
+                                                @endif
+
                                             </div>
                                         </td>
                                         <td style="width:16%" class="price-td">
                                             <div><strong> {{ number_format($job->salary, 0, ',', '.') }} XAF</strong></div>
                                         </td>
                                         <td style="width:10%" class="action-td">
+
+                                            <p><a class="btn btn-sm" href="{{ route('job.boost', $job->id) }}"
+                                                    data-toggle="modal" data-target="#boostAds{{ $job->id }}"
+                                                    style="background-color: skyblue"> <i class="fas fa-bolt"></i> Booster
+                                                </a>
+                                            </p>
+                                            @include('profiles.boost_ads')
+
                                             <form action="{{ route('jobs.destroy', $job->id) }}" method="post">
                                                 <div>
                                                     <p><a class="btn btn-primary btn-sm" data-toggle="modal"
@@ -98,7 +131,9 @@
                                                     </p>
 
                                                     <p><a class="btn btn-info btn-sm"> <i class="fa fa-mail-forward"></i> Share
-                                                        </a></p>
+                                                        </a>
+                                                    </p>
+
                                                     @csrf
                                                     @method('DELETE')
 
@@ -110,6 +145,7 @@
                                         </td>
                                     </tr>
                                     @include('jobs.edit')
+
                                 @endforeach
                             </tbody>
                         </table>

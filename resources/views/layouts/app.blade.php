@@ -74,7 +74,7 @@
             @yield('content')
 		</div>
 		<!-- /.main-container -->
-
+ 
         @include('partials.footer')
 		<!-- /.footer -->
 	</div>
@@ -89,6 +89,7 @@
 @include('partials.scriptTemplate')
 <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
 @yield('scripts')
+
 <script src="{{ asset('js/like.js') }}"></script>
 </body>
 

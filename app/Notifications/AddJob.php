@@ -64,7 +64,7 @@ class AddJob extends Notification
     {
         return [
             'job_id' => $this->job->id,
-            'job_title' => $this->job->title,
+            'job_title' => $this->job->title, 
             'user_id' => Auth::user()->id
         ];
     }

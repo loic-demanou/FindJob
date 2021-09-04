@@ -5,13 +5,6 @@
                 <span class="badge badge-pill badge-primary">
                     @auth
                         @php
-                            // foreach ($Auth::user()->roles as $role {
-                            //     if ($role->name == 'Admin') {
-                                    
-
-                            //     }
-
-                            // }                     
                             $allNotifications = App\Models\Notification::whereIn('notifiable_type', ['App\Models\User', 'App\Models\Message', 'App\Models\Contact', 'App\Models\Job'])
                             ->orderBy('created_at', 'DESC')->get();
                             // ->where('data->user_id', Auth::user()->id)

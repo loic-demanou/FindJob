@@ -100,4 +100,10 @@ class ProfileController extends Controller
 
         return back()->with('success', 'Removed to favorites');
     }
+
+    public function alert()
+    {
+        $categories= Category::where('status', 1)->get();
+        return view('profiles.alert', compact('categories'));
+    }
 }

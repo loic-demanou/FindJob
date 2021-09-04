@@ -160,7 +160,7 @@
                             <span class="d-none d-sm-block">{{ $role->name }}</span>
                         @endforeach
                 @else
-                    <img src="../img/user.svg" alt="Admin" class="rounded-circle mr-2">
+                    <img src="{{ asset('images/user.jpg') }}" alt="Admin" class="rounded-circle mr-2">
                     {{-- @foreach ( Auth::user()->roles as $role )
                         <span class="d-none d-sm-block">{{ $role->name }}</span>
                     @endforeach --}}
@@ -174,14 +174,14 @@
                                 <img src="{{ asset('storage') . '/' . Auth::user()->profile_photo_path }}" alt="User"
                                     class="rounded-circle mb-2" width="75" height="75">
                             @else
-                                <img src="../img/user.svg" alt="User" class="rounded-circle mb-2" width="75"
+                                <img src="{{ asset('images/user.jpg') }}" alt="User" class="rounded-circle mb-2" width="75"
                                     height="75">
                                     {{-- <span class="d-none d-sm-block">Admin</span> --}}
                             @endif
                             <h6>{{ Auth::user()->username }}</h6>
                             <small class="text-muted">{{ Auth::user()->email }}</small>
                         @else
-                            <img src="../img/user.svg" alt="User" class="rounded-circle mb-2" width="75" height="75">
+                            <img src="{{ asset('images/user.jpg') }}" alt="User" class="rounded-circle mb-2" width="75" height="75">
                         @endif
                     </div>
 

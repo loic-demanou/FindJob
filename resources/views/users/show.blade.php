@@ -45,7 +45,7 @@
                                 <img src="{{ asset('storage') . '/' . $user->image }}" alt="user"
                                     class="rounded-circle" width="150" height="150">
                             @else
-                                <img src="{{ asset('dist/img/user1.svg') }}" alt="user" class="rounded-circle"
+                                <img src="{{ asset('images/user.jpg') }}" alt="user" class="rounded-circle"
                                     width="150" height="150">
                             @endif
 
@@ -68,17 +68,17 @@
                     <div class="card card-style-1 mt-3">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0"><i class="fa fa-globe fa-fw mr-2"></i>Total jobs:</h6>
+                                <h6 class="mb-0"><i class="fas fa-briefcase"></i> Total jobs:</h6>
                                 <span class="text-secondary">{{ $user->jobs->count() }}</span>
                             </li>
 
                             <li class="list-group-item d-flex justify-content-between flex-wrap">
-                                <h6 class="mb-0"><i class="fa fa-globe fa-fw mr-2"></i>Jobs Validated: </h6>
+                                <h6 class="mb-0"><i class="fas fa-check-circle"></i> Jobs Validated: </h6>
                                 <span class="text-secondary">{{ $user->jobs->where('status', 1)->count() }}</span>
                             </li>
 
                             <li class="list-group-item d-flex justify-content-between flex-wrap">
-                                <h6 class="mb-0"><i class="fa fa-globe fa-fw mr-2"></i>Pending jobs: </h6>
+                                <h6 class="mb-0"><i class="fas fa-hourglass-half"></i> Pending jobs: </h6>
                                 <span class="text-secondary">{{ $user->jobs->where('status', 0)->count()}}</span>
                             </li>
 

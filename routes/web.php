@@ -53,10 +53,12 @@ Route::get('/showThisUser/{id}', [UserController::class, 'showThisUser'])->name(
 Route::resource('jobs', JobController::class);
 // Route::get('pagination/fetch_data', 'PaginationController@fetch_data');
 Route::get('/pagination/fetch_data', [JobController::class, 'fetch_data']);
+// Route::get('pagination/fetch_data', 'PaginationController@fetch_data');
 
 
 
 Route::get('/update-job-status', [JobController::class, 'updateJobStatus'])->name('job.update_status');
+Route::put('/BoostAds/{id}', [JobController::class, 'boostAds'])->name('job.boost');
 
 Route::post('/like', [JobController::class, 'like'])->name('jobs.like');
 Route::get('/jobs/category/{id}', [JobController::class, 'findByCategory'])->name('jobs.category');
@@ -94,7 +96,5 @@ Route::delete('/account-deleteAds/{id}', [ProfileController::class, 'deletefavor
 Route::get('/account-my-ads', [ProfileController::class, 'myads'])->name('my-ads');
 Route::get('/account-my-favorites-ads', [ProfileController::class, 'favoritesads'])->name('favorites-ads');
 Route::get('/account-my-pending-ads', [ProfileController::class, 'pendingads'])->name('pending-ads');
-
-
-
+Route::get('/account-alert', [ProfileController::class, 'alert'])->name('ads.alert');
 

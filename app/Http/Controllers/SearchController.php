@@ -26,19 +26,29 @@ class SearchController extends Controller
 
     }
 
-    public function searchJobPriceBetween()
-    {
-        $categories = Category::all();
-        $jobTypes = Jobtype::all();
-        $salaryTypes = Salarytype::all();
-        $cities = City::all();
+    // public function searchJobPriceBetween(Request $request)
+    // {
+    //     $categories = Category::all();
+    //     $jobTypes = Jobtype::all();
+    //     $salaryTypes = Salarytype::all();
+    //     $cities = City::all();
 
-        $min= request()->input('minSalary');
-        $max= request()->input('maxSalary');
+    //     // $min= request()->input('minSalary');
+    //     // $max= request()->input('maxSalary');
+    //     if (isset($request->minSalary) && isset($request->maxSalary) && $request->ajax()) {
+    //         $min= $request->minSalary;
+    //         $lui = json_decode($min);
 
-        $jobs= Job::whereBetween('salary', [$min, $max])->get();
-        return view('jobs.index', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));    
-    }
+    //         $max =$request->maxSalary;
+    //         dd($lui);
+    //         $jobs= Job::whereBetween('salary', [$min, $max])->get();
+    //         return view('jobs.searchAjaxCheckResult', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));    
+    
+    //     }
+
+    //     $jobs= Job::all();
+    //     return view('jobs.searchAjaxCheckResult', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));    
+    // }
 
     public function searchJob(Request $request)
     {
@@ -84,7 +94,7 @@ class SearchController extends Controller
             return view('jobs.index', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));    
     }
 
-    public function homeSearch()
+    public function homeSearch(Request $request)
     {
         $categories = Category::all();
         $jobTypes = Jobtype::all();
@@ -94,31 +104,23 @@ class SearchController extends Controller
         $city = request()->input('city');
         $ads = request()->input('ads');
 
-        if ($city) {
-            $jobs = Job::Where('city_id', $city)->paginate(5);
-            return view('welcome', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));
+        if ($city && $ads) {
+            $jobs = Job::Where('city_id', $city)
+            ->where('status', 1)
+            ->Where('title', 'like', "%$ads%")->latest()->get();
+            return view('jobs.index', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));
 
-        }elseif ($ads) {
-            $jobs = Job::Where('title', 'like', "%$ads%")->paginate(5);
-            return view('welcome', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));
+        }elseif ($city) {
+            $jobs = Job::Where('city_id', $city)
+            ->where('status', 1)
+            ->latest()->get();
+            return view('jobs.index', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));
 
-        }elseif ($city and $ads) {
-            $jobs = Job::Where('title', 'like', "%$ads%")
-            ->where('city_id', $city)->paginate(5);
-            return view('welcome', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));
-
-        }else {
-            return view('welcome', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));
         }
-        $jobs = Job::where('city_id', $city)
-        ->where('city_id', $city)->paginate(5)
-        ->paginate(5);
-        return view('welcome', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));
+        $jobs = Job::where('status', 1)
+        ->latest()->get();
+        return view('jobs.index', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));
 
-
-
-
-        return view('welcome', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));
 
     }
 
