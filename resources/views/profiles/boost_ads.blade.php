@@ -10,8 +10,8 @@
                   </button>
               </div>
               <form action="{{ route('job.boost', $job->id) }}" method="post" id="formBoost">
-                @csrf
-                @method('PUT')
+                  @csrf
+                  @method('PUT')
                   <div class="modal-body">
                       <div class="card bg-light card-body mb-3">
                           <h3><i class=" icon-certificate icon-color-1"></i> Make your Ad Premium
@@ -43,8 +43,9 @@
                                       <td>
                                           <div class="form-check">
                                               <label class="form-check-label">
-                                                  <input class="form-check-input optionsRadios1" type="radio" name="price" value="1000">
-                                                      <input type="radio" name="day" class="optionsday1 hidden" value="1">
+                                                  <input class="form-check-input optionsRadios1" type="radio"
+                                                      name="price" value="1000">
+                                                  <input type="radio" name="day" class="optionsday1 hidden" value="1">
                                                   <strong> Top of the Page Ad during 1 day</strong>
                                               </label>
                                           </div>
@@ -58,8 +59,9 @@
                                       <td>
                                           <div class="form-check">
                                               <label class="form-check-label">
-                                                  <input class="form-check-input optionsRadios2" type="radio" name="price" value="3000">
-                                                      <input type="radio" name="day" class="optionsday2 hidden" value="7">
+                                                  <input class="form-check-input optionsRadios2" type="radio"
+                                                      name="price" value="3000">
+                                                  <input type="radio" name="day" class="optionsday2 hidden" value="7">
                                                   <strong> Top of the Page Ad during 1 week</strong>
                                               </label>
                                           </div>
@@ -73,8 +75,9 @@
                                       <td>
                                           <div class="form-check">
                                               <label class="form-check-label">
-                                                  <input class="form-check-input optionsRadios3" type="radio" name="price" value="5000">
-                                                      <input type="radio" name="day" class="optionsday3 hidden" value="30">
+                                                  <input class="form-check-input optionsRadios3" type="radio"
+                                                      name="price" value="5000">
+                                                  <input type="radio" name="day" class="optionsday3 hidden" value="30">
                                                   <strong> Top of the Page Ad during 1 month</strong>
                                               </label>
                                           </div>
@@ -99,10 +102,24 @@
                                           </div>
                                       </td>
                                       <td>
-                                          <p><strong>Solde : {{ Auth::user()->credit->solde }} XAF</strong></p>
+                                          @if (isset(Auth::user()->credit->solde))
+                                            <p><strong>Solde : {{ Auth::user()->credit->solde }} XAF</strong></p>
+                                          @else
+                                            <p><strong>Solde : 0 XAF</strong></p>
+                                          @endif
                                       </td>
                                   </tr>
                               </table>
+                              @error('price')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
+                              @error('day')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
                           </div>
                       </div>
 
@@ -118,14 +135,14 @@
   </div>
 
   <script>
-    //   $('#optionsRadios1').click(function(e) {
-    //     console.log('form submiitend');
+      //   $('#optionsRadios1').click(function(e) {
+      //     console.log('form submiitend');
 
-    //     $('#optionsday1').click(function (e) { 
-    //         // e.preventDefault();
-            
-    //     });
+      //     $('#optionsday1').click(function (e) { 
+      //         // e.preventDefault();
 
-         
-    //   });
+      //     });
+
+
+      //   });
   </script>

@@ -169,30 +169,30 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    $('#searchbar').keyup(function () {
-        var days = $(this).val();
-        // console.log(days);
-        console.log(days);
-        dayscheck = days.toString();
-        $.ajax({
-            type: 'get',
-            dataType: 'html',
-            url: '',
-            beforeSend: function () { 
-                $('#loader').show();
-            },
-            complete: function () { 
-                $('#loader').hide();
-            },    
-            data: "title=" + dayscheck,
-            success: function (response) {
-                console.log(response);
-                $('#updateDiv').html(response);
-            }
-        });    
-    });
-});
+// $(document).ready(function () {
+//     $('#searchbar').keyup(function () {
+//         var days = $(this).val();
+//         // console.log(days);
+//         console.log(days);
+//         dayscheck = days.toString();
+//         $.ajax({
+//             type: 'get',
+//             dataType: 'html',
+//             url: '',
+//             beforeSend: function () { 
+//                 $('#loader').show();
+//             },
+//             complete: function () { 
+//                 $('#loader').hide();
+//             },    
+//             data: "title=" + dayscheck,
+//             success: function (response) {
+//                 console.log(response);
+//                 $('#updateDiv').html(response);
+//             }
+//         });    
+//     });
+// });
 
 $(document).ready(function () {
     $('#BtnSearch').click(function (e) {
@@ -216,9 +216,9 @@ $(document).ready(function () {
                 $('#updateDiv').html(response);
             }
         });    
-
     });
 });
+
 $(document).ready(function () {
     $('#search-category').change(function (e) { 
         var cato = $(this).val()
@@ -241,6 +241,7 @@ $(document).ready(function () {
         });    
     });
 });
+
 $(document).ready(function () {
     $('#id-location').change(function (e) {
         var loc = $(this).val()
@@ -419,3 +420,33 @@ $(document).ready(function () {
       });
 });
 
+
+
+
+$(document).ready(function(){
+        
+    $(document).on('click', '.pagination a', function(event){
+     event.preventDefault(); 
+     var page = $(this).attr('href').split('page=')[1];
+    //  fetch_data(page);
+    //  alert(page);
+    });
+   
+    function fetch_data(page)
+    {
+     $.ajax({
+    //   url:"/pagination/fetch_data?page="+page,
+    url:"{{ route('jobs.index) }}" +"?page=" +page,
+
+      success:function(data)
+      {
+       $('#updateDiv').html(data);
+       console.log(data);
+      },
+      error: function (request, status, error) {
+        alert(error);
+    }
+     });
+    }
+    
+   });

@@ -8,7 +8,7 @@
             <div class="container ">
                 <form action="#">
                     {{-- <form action="{{ route('jobs.searchitems') }}" method="GET"> --}}
-                    <div class="row">
+                    <div class="row"> 
                         <div class="col-md-3">
                             <input name="q" class="form-control keyword" type="text" id="searchbar"
                                 placeholder="{{ __('home.job_ttle') }}" value="{{ request()->q ?? '' }}">
@@ -280,15 +280,11 @@
 
 
                         @if ($message = Session::get('success'))
-                            <div class="alert alert-success fade show" role="alert">
-                                <button class="btn btn-sm btn-icon btn-faded-success btn-close" type="button"
-                                    data-dismiss="alert"><i class="material-icons">close</i></button>
-                                <div class="media">
-                                    <i class="material-icons">check_circle_outline</i>
-                                    <div class="media-body ml-2">
-                                        <strong>Well Done!</strong> {{ $message }}
-                                    </div>
-                                </div>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Well Done!</strong> {{ $message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
                         @endif
 
@@ -308,7 +304,8 @@
 
                         <div class="adds-wrapper jobs-list" id="updateDiv">
                             {{-- <div class="adds-wrapper jobs-list" id="updateDiv"> --}}
-                            @if ($premiums)
+
+                            {{-- @if (isset($premiums))
                                 @foreach ($premiums as $job)
                                     <div class="d-flex justify-content-end">
                                         <p class="p-1 position-absolute text-center mt-4 text-small"
@@ -378,10 +375,10 @@
                                                                     @auth
                                                                         @if ($job->isLikedByLoggedInUser())
                                                                             <button type="submit" class="btn btn-link like"
-                                                                                id="like">Je n'aime plus</button>
+                                                                                id="like">Je n'aime plus 💖</button>
                                                                         @else
                                                                             <button type="submit" class="btn btn-link like"
-                                                                                id="like">J'aime</button>
+                                                                                id="like">J'aime ❤</button>
                                                                         @endif
                                                                     @endauth
                                                                     
@@ -403,8 +400,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-
-                            @endif
+                            @endif --}}
 
 
                             @include('jobs.searchAjaxCheckResult')
@@ -486,12 +482,6 @@
                                 </div>
                             @endforeach --}}
 
-                            <!--/.job-item-->
-                            {{-- <div class="pagination-bar text-center">
-                                {!! $jobs->links() !!}
-                            </div> --}}
-
-
                         </div>
                         <!--/.adds-wrapper-->
 
@@ -503,11 +493,6 @@
                     </div> --}}
                         <!--/.pagination-bar -->
 
-                        {{-- <div class="post-promo text-center">
-                        <h2> Looking for a job? </h2>
-                        <h5> Upload your CV and easily apply to jobs from any device! </h5>
-                        <a href="" class="btn btn-lg btn-border btn-post btn-danger">Upload your CV </a>
-                    </div> --}}
                         <!--/.post-promo-->
 
                     </div>
@@ -517,29 +502,7 @@
             </div>
         </div>
         <!-- /.main-container -->
+        {{-- <script src="{{ asset('js/pagination.js') }}"></script> --}}
 
 
-
-        {{-- <script>
-        $(document).ready(function(){
-        
-         $(document).on('click', '.pagination a', function(event){
-          event.preventDefault(); 
-          var page = $(this).attr('href').split('page=')[1];
-          fetch_data(page);
-         });
-        
-         function fetch_data(page)
-         {
-          $.ajax({
-           url:"/pagination/fetch_data?page="+page,
-           success:function(data)
-           {
-            $('#updateDiv').html(data);
-           }
-          });
-         }
-         
-        });
-        </script> --}}
     @endsection

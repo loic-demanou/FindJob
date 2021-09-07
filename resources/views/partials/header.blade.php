@@ -6,12 +6,12 @@
                 <span class="logo-icon"><i class="fas fa-search-location"></i><i class="icon icon-search-1 ln-shadow-logo bg-danger "></i>
                 </span><span class="text-white">FindJob</span> </a> 
 
-            <button class="flag-menu country-flag d-block d-sm-none btn btn-secondary hidden"
+            {{-- <button class="flag-menu country-flag d-block d-sm-none btn btn-secondary hidden"
                 href="#select-country" data-toggle="modal"> <span class="flag-icon flag-icon-us"></span> <span
                     class="caret"></span>
-            </button>
+            </button> --}}
 
-            <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggler" type="button">
+            <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggler text-white" type="button">
                 <span class="sr-only">Toggle navigation</span> &#x2630;</button>
 
 
@@ -27,10 +27,15 @@
                         <li class="nav-item">
                             @include('partials.notificationsUser')
                         </li>
-
+                        @if (isset(Auth::user()->credit->solde))
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('jobs.index') }}">Credit: {{ number_format(Auth::user()->credit->solde, 0, ',', '.') }} XAF</a>
+                            <a class="nav-link text-white" href="{{ route('credit.index') }}">Credit: {{ number_format(Auth::user()->credit->solde, 0, ',', '.') }} XAF</a>
                         </li>
+                        @else
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ route('credit.index') }}">Credit: 0 XAF</a>
+                        </li>
+                        @endif
                         @endauth
 
                     @guest
@@ -46,12 +51,6 @@
                     @endguest
 
 
-                    {{-- @guest
-                        <li class="postadd nav-item"><a
-                            class="btn btn-block  btn-border btn-post btn-primary nav-link"
-                            href="{{ route('login') }}">{{ __('features.login') }}</a>
-                        </li>
-                    @endguest --}}
                     @auth
                     <li class="dropdown no-arrow nav-item"><a href="#" class="dropdown-toggle nav-link text-white"
                             data-toggle="dropdown">

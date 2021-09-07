@@ -3,15 +3,11 @@
 
     <div class="col-md-9 page-content">
         @if ($message = Session::get('success'))
-            <div class="alert alert-success fade show" role="alert">
-                <button class="btn btn-sm btn-icon btn-faded-success btn-close" type="button" data-dismiss="alert"><i
-                        class="material-icons">close</i></button>
-                <div class="media">
-                    <i class="material-icons">check_circle_outline</i>
-                    <div class="media-body ml-2">
-                        <strong>Well Done!</strong> {{ $message }}
-                    </div>
-                </div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Well Done!</strong> {{ $message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @endif
 
@@ -21,31 +17,11 @@
             @auth
                 @if (Auth::user()->jobs->where('status', 0)->count() > 0)
                     <div class="table-responsive">
-                        <div class="table-action">
-                            <label for="checkAll">
-                                <input type="checkbox" id="checkAll">
-                                Select: All | <a href="#" class="btn btn-sm btn-danger">Delete <i
-                                        class="glyphicon glyphicon-remove "></i></a> </label>
-
-                            <div class="table-search pull-right col-sm-7">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <label class="col-sm-5 control-label text-right">Search <br>
-                                            <a title="clear filter" class="clear-filter" href="#clear">[clear]</a>
-                                        </label>
-
-                                        <div class="col-sm-7 searchpan">
-                                            <input type="text" class="form-control" id="filter">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <table id="addManageTable" class="table table-striped table-bordered add-manage-table table demo"
+                        <table id="pendingTable" class="table table-striped table-bordered add-manage-table table demo"
                             data-filter="#filter" data-filter-text-only="true">
                             <thead>
                                 <tr>
-                                    <th data-type="numeric" data-sort-initial="true"></th>
+                                    {{-- <th data-type="numeric" data-sort-initial="true"></th> --}}
                                     <th> Photo</th>
                                     <th data-sort-ignore="true"> Adds Details</th>
                                     <th data-type="numeric"> Price</th>
@@ -54,19 +30,11 @@
                             </thead>
                             <tbody>
                                 @foreach ($jobs as $job)
-
-                                    <tr>
-                                        <td style="width:2%" class="add-img-selector">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">
-                                                </label>
-                                            </div>
-                                        </td>
                                         <td style="width:14%" class="add-img-td">
 
                                             @if ($job->image)
-                                                <a href="{{ route('jobs.show', $job->id) }}"><img class="thumbnail  img-responsive"
+                                                <a href="{{ route('jobs.show', $job->id) }}"><img
+                                                        class="thumbnail  img-responsive"
                                                         src="{{ asset('storage') . '/' . $job->image }}" alt="img"></a>
                                             @else
                                                 <a href="{{ route('jobs.show', $job->id) }}"><img alt="img"
@@ -86,12 +54,12 @@
                                                     {{ $job->city->name }}
                                                 </p>
                                                 @if ($job->premium)
-                                                <span class="d-flex justify-content-end">
-                                                    <p class="p-1 position-absolute text-center text-small"
-                                                        style="background: gold; width:100px; margin-top:100px; border-radius: 5px">
-                                                        Premium</p>
-                                                </span>
-                                            @endif
+                                                    <span class="d-flex justify-content-end">
+                                                        <p class="p-1 position-absolute text-center text-small"
+                                                            style="background: gold; width:100px; margin-top:100px; border-radius: 5px">
+                                                            Premium</p>
+                                                    </span>
+                                                @endif
 
                                             </div>
                                         </td>
@@ -158,20 +126,25 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        window.jQuery || document.write('<script src="assets/js/jquery/jquery-3.3.1.min.js">\x3C/script>')
+        window.jQuery || document.write('<script src="{{ asset('assets/js/jquery/jquery-3.3.1.min.js') }}">\x3C/script>')
     </script>
-    <script src="assets/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="assets/js/vendors.min.js"></script>
+    <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/vendors.min.js') }}"></script>
 
     <!-- include custom script for site  -->
-    <script src="assets/js/main.min.js"></script>
+    <script src="{{ asset('assets/js/main.min.js') }}"></script>
 
+    <script>
+        $(document).ready( function () {
+            $('#pendingTable').DataTable();
+        } );
+    </script>
 
 
     <!-- include footable   -->
 
-    <script src="assets/js/footable.js?v=2-0-1" type="text/javascript"></script>
-    <script src="assets/js/footable.filter.js?v=2-0-1" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/footable.js?v=2-0-1') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/footable.filter.js?v=2-0-1') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(function() {
             $('#addManageTable').footable().bind('footable_filtering', function(e) {

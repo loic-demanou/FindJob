@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlertController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CityController;
@@ -7,12 +8,14 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\JobadminController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobtypeController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalarytypeController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SocialShareController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -52,7 +55,7 @@ Route::get('/showThisUser/{id}', [UserController::class, 'showThisUser'])->name(
 
 Route::resource('jobs', JobController::class);
 // Route::get('pagination/fetch_data', 'PaginationController@fetch_data');
-Route::get('/pagination/fetch_data', [JobController::class, 'fetch_data']);
+Route::get('/pagination/fetch_data', [JobController::class, 'fetch_data'])->name('getMoreData');
 // Route::get('pagination/fetch_data', 'PaginationController@fetch_data');
 
 
@@ -96,5 +99,21 @@ Route::delete('/account-deleteAds/{id}', [ProfileController::class, 'deletefavor
 Route::get('/account-my-ads', [ProfileController::class, 'myads'])->name('my-ads');
 Route::get('/account-my-favorites-ads', [ProfileController::class, 'favoritesads'])->name('favorites-ads');
 Route::get('/account-my-pending-ads', [ProfileController::class, 'pendingads'])->name('pending-ads');
-Route::get('/account-alert', [ProfileController::class, 'alert'])->name('ads.alert');
+Route::get('/account-alert', [AlertController::class, 'index'])->name('ads.alert');
+Route::post('/account-alert-new', [AlertController::class, 'store'])->name('alerts.store');
+
+
+Route::get('/account-credit', [ProfileController::class, 'creditIndex'])->name('credit.index');
+
+Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('message.send');
+
+
+Route::get('/social-share-fb/{id}', [SocialShareController::class, 'index'])->name('social.index');
+Route::get('/social-share-tw/{id}', [SocialShareController::class, 'twitter'])->name('social.twitter');
+Route::get('/social-share-ln/{id}', [SocialShareController::class, 'linkedIn'])->name('social.linkedin');
+Route::get('/social-share-wa/{id}', [SocialShareController::class, 'whatsapp'])->name('social.whatsapp');
+Route::get('/social-share-te/{id}', [SocialShareController::class, 'telegram'])->name('social.telegram');
+
+
+
 

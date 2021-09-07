@@ -15,4 +15,10 @@ class Category extends Model
         return $this->hasMany(Job::class);
     } 
 
+    public function alert()
+    {
+        return $this->hasMany(Alert::class);
+    }
+
+
 }

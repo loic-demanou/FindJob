@@ -25,7 +25,7 @@
                         @if ($job->image)
                             <a href="#"><img alt="company logo" src="{{ asset('storage') . '/' . $job->image }}"
                                     alt="Image" class="rounded" height="50px"></a>
-                        @else 
+                        @else
                             <a href=""><img alt="company logo"
                                     src="{{ asset('storage') . '/' . $job->category->image }}"
                                     class="thumbnail no-margin rounded"></a>
@@ -73,25 +73,19 @@
                                         </a>
                                         @auth
                                             @if ($job->isLikedByLoggedInUser())
-                                                <button type="submit" class="btn btn-link like" id="like">Je n'aime plus</button>
+                                                <button type="submit" class="btn btn-link like" id="like">Unsave
+                                                    💖</button>
                                             @else
-                                            <button type="submit" class="btn btn-link like" id="like">J'aime</button>
+                                                <button type="submit" class="btn btn-link like" id="like">Save ❤</button>
                                             @endif
-
                                         @endauth
                                     </form>
 
                                 </li>
-                                {{-- <li class="saved-job hide">
-                                <a href="#" class="saved-job">
-                                    <span class="fa fa-star"></span>
-                                    Saved Job
-                                </a>
-                            </li> --}}
                                 <li>
                                     <a href="#" class="email-job">
                                         <i class="fa fa-envelope"></i>
-                                        Email Job
+                                        Share
                                     </a>
                                 </li>
                             </ul>
@@ -104,6 +98,7 @@
             </div>
         </div>
     @endforeach
+    {{-- <div class="">{{ $jobs->links() }}</div> --}}
     <!--/.job-item-->
     {{-- <div class="pagination-bar text-center">
         {!! $jobs->links() !!}
@@ -114,10 +109,28 @@
 
 {{-- <div class="tab-box  save-search-bar text-center"><a href=""> <i class=" icon-star-empty"></i>
     Save Search </a></div>
-</div>
-<div class="pagination-bar text-center"> 
+</div> --}}
+{{-- {!! $jobs->links() !!} --}}
+
+{{-- <div class="pagination-bar text-center"> 
 {{ $jobs->links() }}
 </div> --}}
+
+<div class="pagination-bar text-center">
+    <nav aria-label="Page navigation " class="d-inline-b">
+        <ul class="pagination">
+            {{-- {{ $jobs->links() }} --}}
+            {{-- <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#"></a></li>
+         <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">...</a></li>  --}}
+            {{-- <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li> --}}
+        </ul>
+    </nav>
+</div>
 
 {{-- <script>
         $(document).ready(function(){

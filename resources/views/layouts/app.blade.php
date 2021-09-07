@@ -14,7 +14,11 @@
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('assets/ico/apple-touch-icon-72-precomposed.png') }}">
 	<link rel="apple-touch-icon-precomposed" href="{{ asset('assets/ico/apple-touch-icon-57-precomposed.png') }}">
 	<link rel="shortcut icon" href="{{ asset('assets/ico/favicon.png') }}">
-	<title>BOOTCLASIFIED - Responsive Classified Theme</title>
+
+	{{-- datatable css --}}
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.css">	
+
+	<title>Find-Job the ads job plat-form</title>
 	<!-- Bootstrap core CSS -->
 	<link href="{{ asset('assets/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
 
@@ -88,8 +92,12 @@
 
 @include('partials.scriptTemplate')
 <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.js"></script>
+
 @yield('scripts')
 
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script> --}}
+<script src="{{ asset('js/share.js') }}"></script>
 <script src="{{ asset('js/like.js') }}"></script>
 </body>
 

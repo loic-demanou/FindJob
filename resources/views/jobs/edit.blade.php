@@ -50,10 +50,10 @@
 
                     <!-- Textarea -->
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="textarea">{{ __('home.job_description') }}
+                        <label class="col-sm-3 col-form-label" for="job-edit">{{ __('home.job_description') }}
                         </label>
                         <div class="col-sm-8">
-                            <textarea style="height: 250px"
+                            <textarea style="height: 250px" id="job-edit"
                                 class="form-control @error('description') is-invalid @enderror" id="job-textarea"
                                 name="description" placeholder="{{ __('home.job_description') }}"
                                 value="{{  $job->description  }}">{{  $job->description  }}</textarea>
@@ -172,3 +172,15 @@
         @endif
     });
 </script>
+@section('scripts')
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#job-edit'))
+            // $('#job-textarea').height(100);
+            .catch(error => {
+                console.error(error);
+            });
+            
+    </script>
+@endsection
+

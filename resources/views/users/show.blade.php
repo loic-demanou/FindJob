@@ -56,7 +56,7 @@
                                         <p class="text-muted font-size-sm">{{ $role->name }}</p>
                                     @endforeach
                                     {{-- <button class="btn btn-primary">Follow</button> --}}
-                                    <span class="font-weight-bold">Member since </span> <span>{{ $user->created_at->format('Y-m-d. a H:m') }}</span>
+                                    <span class="font-weight-bold">{{ __('home.joined') }} </span> <span>{{ $user->created_at->format('Y-m-d. a H:m') }}</span>
 
                                     {{-- <button type="button" data-toggle="modal" data-target="#profileEdit{{ Auth::user()->id }}"
                                         class="btn btn-outline-primary">{{ __('user.edit_profile') }}</button> --}}
@@ -78,7 +78,7 @@
                             </li>
 
                             <li class="list-group-item d-flex justify-content-between flex-wrap">
-                                <h6 class="mb-0"><i class="fas fa-hourglass-half"></i> Pending jobs: </h6>
+                                <h6 class="mb-0"><i class="fas fa-hourglass-half"></i> {{ __('sidebarClient.pending') }}: </h6>
                                 <span class="text-secondary">{{ $user->jobs->where('status', 0)->count()}}</span>
                             </li>
 
@@ -143,7 +143,7 @@
                             <div class="card card-style-1 h-100">
                                 <div class="card-body">
                                     <h6 class="d-flex align-items-center mb-3"><i
-                                            class="material-icons text-warning mr-2">rss_feed</i>Recent Connexion</h6>
+                                            class="material-icons text-warning mr-2">rss_feed</i>{{ __('home.last_online') }}</h6>
                                     <div class="timeline timeline-left font-size-sm">
                                         <div class="timeline-container left">
                                             <div class="popover bs-popover-right popover-static shadow-none">

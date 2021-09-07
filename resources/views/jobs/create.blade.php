@@ -474,6 +474,15 @@
         </div>
         <!-- /.row -->
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{ asset('assets/js/jquery/jquery-3.3.1.min.js') }}">\x3C/script>')</script>
+<script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.js') }}"></script>
+<script src="{{ asset('assets/js/vendors.min.js') }}"></script>
+
+<!-- include custom script for site  -->
+<script src="{{ asset('assets/js/main.min.js') }}"></script>
+
 @endsection
 
 @section('scripts')

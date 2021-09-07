@@ -192,8 +192,16 @@
                                                                     class="count-js">{{ $job->likes->count() }}</span>
                                                             </a>
                     
-                                                            <button type="submit" class="btn btn-link like" id="like">Favori</button>
-                                                        </form>
+                                                            @auth
+                                                            @if ($job->isLikedByLoggedInUser())
+                                                                <button type="submit" class="btn btn-link like"
+                                                                    id="like">Unsave 💖</button>
+                                                            @else
+                                                                <button type="submit" class="btn btn-link like"
+                                                                    id="like">Save ❤</button>
+                                                            @endif
+                                                        @endauth
+                                            </form>
                     
                                                     </li>
                                                     {{-- <li class="saved-job hide">

@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Http\Requests\ClientRequest;
+use App\Models\Alert;
 use App\Models\Client;
 use App\Models\Contact;
 use App\Models\Job;
@@ -13,7 +14,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
-class AddJob extends Notification
+class AddJobAlert extends Notification
 {
     use Queueable;
 
@@ -63,12 +64,21 @@ class AddJob extends Notification
     public function toArray($notifiable)
     {
 
-        
+        // $alerts= Alert::all();
+        // foreach ($alerts as $alert) {
+        //     $alerteur= $alert->user_id;
+        //     if ($alert->category_id == $request->category) {
+        //         $users->notify(new AddJob($users));
+        //         dd("ça correspond");
+        //     }
+        // }
+
 
         return [
             'job_id' => $this->job->id,
             'job_title' => $this->job->title, 
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            // 'alerteur' => ''
         ];
     }
 }

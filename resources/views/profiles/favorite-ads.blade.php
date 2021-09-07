@@ -9,30 +9,10 @@
                 @if (Auth::user()->likes->count() > 0)
                     <div class="table-responsive">
                         <div class="table-action">
-                            <label for="checkAll">
-                                <input type="checkbox" id="checkAll">
-                                Select: All | <a href="#" class="btn btn-sm btn-danger">Delete <i
-                                        class="glyphicon glyphicon-remove "></i></a> </label>
-
-                            <div class="table-search pull-right col-sm-7">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <label class="col-sm-5 control-label text-right">{{ __('button.search') }} <br>
-                                            <a title="clear filter" class="clear-filter" href="#clear">[clear]</a>
-                                        </label>
-
-                                        <div class="col-sm-7 searchpan">
-                                            <input type="text" class="form-control" id="filter">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <table id="addManageTable" class="table table-striped table-bordered add-manage-table table demo"
+                        <table id="favouriteTable" class="table table-striped table-bordered add-manage-table table demo"
                             data-filter="#filter" data-filter-text-only="true">
                             <thead>
                                 <tr>
-                                    <th data-type="numeric" data-sort-initial="true"></th>
                                     <th> Photo</th>
                                     <th data-sort-ignore="true"> Details</th>
                                     <th data-type="numeric"> {{ __('home.salary') }}</th>
@@ -43,14 +23,6 @@
 
                                 @foreach (Auth::user()->likes as $like)
 
-                                    <tr>
-                                        <td style="width:2%" class="add-img-selector">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">
-                                                </label>
-                                            </div>
-                                        </td>
                                         <td style="width:14%" class="add-img-td"><a href="ads-details.html">
                                                 @if ($like->job->image)
                                                     <img class="thumbnail  img-responsive"
@@ -82,7 +54,8 @@
                                             <form action="{{ route('favorite.delete', $like->id) }}" method="post">
                                                 @csrf
                                                 <div>
-                                                    <p><a class="btn btn-info btn-sm"> <i class="fa fa-mail-forward"></i> Share
+                                                    <p><a class="btn btn-info btn-sm" data-toggle="modal"
+                                                        data-target=".shareAd"> <i class="fa fa-mail-forward"></i> Share
                                                         </a></p>
                                                     @method('DELETE')
                                                     <p><button type="submit" class="btn btn-danger btn-sm" title="Delete">
@@ -93,7 +66,26 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
+                                <div class="modal fade shareAd" id="shareAd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Share This Ad</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                        <a href="{{ route('social.index', $like->job->id) }}" target="_blank"><i class="fab fa-facebook-square ml-3"></i> Facebook</a>
+                                        <a href="{{ route('social.twitter', $like->job->id) }}" target="_blank"><i class="fab fa-twitter ml-3"></i> Twitter</a>
+                                        <a href="{{ route('social.linkedin', $like->job->id) }}" target="_blank"><i class="fab fa-linkedin-in ml-3"></i> LinkedIn</a>
+                                        <a href="{{ route('social.whatsapp', $like->job->id) }}" target="_blank"><i class="fab fa-whatsapp ml-3"></i> WhatsApp</a>
+                                        <a href="{{ route('social.telegram', $like->job->id) }}" target="_blank"><i class="fab fa-telegram ml-3"></i> Telegram</a>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -121,21 +113,28 @@
 
     <!-- Placed at the end of the document so the pages load faster -->
 
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        window.jQuery || document.write('<script src="assets/js/jquery/jquery-3.3.1.min.js">\x3C/script>')
+        window.jQuery || document.write('<script src="{{ asset('assets/js/jquery/jquery-3.3.1.min.js') }}">\x3C/script>')
     </script>
-    <script src="assets/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="assets/js/vendors.min.js"></script>
+    <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/vendors.min.js') }}"></script>
 
     <!-- include custom script for site  -->
-    <script src="assets/js/main.min.js"></script>
+    <script src="{{ asset('') }}assets/js/main.min.js"></script>
+
+    <script>
+        $(document).ready( function () {
+            $('#favouriteTable').DataTable();
+        } );
+    </script>
 
 
 
-
-    <script src="assets/js/footable.js?v=2-0-1" type="text/javascript"></script>
-    <script src="assets/js/footable.filter.js?v=2-0-1" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/footable.js?v=2-0-1') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/footable.filter.js?v=2-0-1') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(function() {
             $('#addManageTable').footable().bind('footable_filtering', function(e) {

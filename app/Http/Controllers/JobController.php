@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alert;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Credit;
@@ -13,6 +14,7 @@ use App\Models\Salarytype;
 use App\Models\User;
 use App\Notifications\AcceptJob;
 use App\Notifications\AddJob;
+use App\Notifications\AddJobAlert;
 use App\Notifications\AddUser;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -28,6 +30,10 @@ class JobController extends Controller
 
     public function boostAds(Request $request, $id)
     {
+        $request->validate([
+            'day' =>"required",
+            'price'=>"required"
+        ]);
         // dd($day = $request->day1);
 
         $day = $request->day;
@@ -35,8 +41,12 @@ class JobController extends Controller
         $price = $request->price;
         // dd($day);
         // dd($price);
-
-        $solde= Auth::user()->credit->solde;
+        if (isset(Auth::user()->credit->solde)) {
+            $solde= Auth::user()->credit->solde;
+        } else {
+            return back()->with('danger', 'Votre credit est insuffisant pour cette offre');
+        }
+        
 
         $job = Job::find($id);
 
@@ -54,7 +64,6 @@ class JobController extends Controller
             'solde' => $cost
         ]);
         // dd($credit);
-
         $job = Job::find($id);
 
         if ($day) {
@@ -82,20 +91,13 @@ class JobController extends Controller
         $salaryTypes = Salarytype::all();
         $cities = City::all();
 
-        // $likeCount = Like::where('user_id', Auth::user()->id)->count();
-
-        // $jobs = Job::where('status', 1)->paginate(2);
-        // $jobs = Job::where('status', 1)->latest()->get();
-
-        // return view('jobs.index', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));    
-
 
         if (isset($request->brand) && $request->ajax()) {
             $brand = $request->brand;
             // dd($brand);
             $jobs = Job::whereIn('jobtype_id', explode(",", $brand))
-                ->where('status', 1)
-                ->get();
+                ->where('status', 1)->paginate(3);
+                // ->get();
 
             response()->json($jobs);
             return view('jobs.searchAjaxCheckResult', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));
@@ -125,7 +127,7 @@ class JobController extends Controller
             $date = Carbon::now()->subDays($days);
             $jobs = Job::where('created_at', '>=', $date)
                 ->where('status', 1)->latest()
-                ->paginate(5);
+                ->get();
 
             response()->json($jobs);
             return view('jobs.searchAjaxCheckResult', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'));
@@ -194,7 +196,7 @@ class JobController extends Controller
 
         // $categoryrang= 
         $jobs = Job::where('status', 1)
-            ->latest()->paginate(5);
+            ->latest()->get();
         return view('jobs.index', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities', 'premiums'));
     }
 
@@ -208,7 +210,7 @@ class JobController extends Controller
         if ($request->ajax()) {
             if (request()->ajax()) {
                 $jobs = Job::where('status', 1)
-                    ->paginate(5);
+                    ->paginate(3);
                 return view('jobs.searchAjaxCheckResult', compact('jobs', 'categories', 'jobTypes', 'salaryTypes', 'cities'))->render();
             }
         }
@@ -241,7 +243,7 @@ class JobController extends Controller
             if ($res) {
                 return response()->json([
                     'count' => Job::find(request()->id)->likes->count(),
-                    'like' => "j'aime"
+                    'like' => "Save ❤"
                 ]);
             }
         } else {
@@ -254,7 +256,7 @@ class JobController extends Controller
 
             return response()->json([
                 'count' => Job::find(request()->id)->likes->count(),
-                'like' => "j'aime plus"
+                'like' => "Unsave 💖"
             ]);
         }
     }
@@ -281,9 +283,11 @@ class JobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         //  dd($request->mobile);
+        // dd($alerts);
 
         $request->validate([
             'jobTitle' => 'required|max:60',
@@ -342,6 +346,8 @@ class JobController extends Controller
                 ['image' => $imgpath]
             ));
 
+            // $alert =Alert::all();
+
             $users->notify(new AddJob($users));
 
             return redirect()->route('jobs.index')
@@ -358,6 +364,15 @@ class JobController extends Controller
                 'status' => 0,
                 'user_id' => Auth::user()->id,
             ]);
+
+            // $alerts =Alert::all();
+            // foreach ($alerts as $alert) {
+            //     if ($alert->category_id == $request->category) {
+            //         $users->notify(new AddJobAlert($users));
+            //         // dd("ça correspond");
+            //     }
+            // }
+    
             $users->notify(new AddJob($users));
 
             // dd($users);

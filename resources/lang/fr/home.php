@@ -33,6 +33,16 @@ return [
     'showcase' => 'Mettre en valeur les réalisations',
     'know_more' => 'En savoir plus',
 
+    'last_online' => "Dernière connexion",
+    'joined'=> "Membre depuis",
+    'contact_user'=>"Contacter l'annonceur",
+    'posted_by'=> "Posté par",
+    'contact_advertiser' => "Contacter l'annonceur",
+    'send_message' => 'Envoyer le message',
+    'your_name'=> 'Votre nom',
+    'your_message' =>'Votre message ici',
+
+
         // job creation
 
         'post_a_job' => 'POSTEZ UN EMPLOI',

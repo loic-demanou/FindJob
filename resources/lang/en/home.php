@@ -33,6 +33,16 @@ return [
     'showcase' => 'Showcase achievements',
     'know_more' => 'Know more',
 
+    'last_online' => "Last online",
+    'joined'=> "Joined",
+    'contact_user'=>"Contact User",
+    'posted_by'=> "Posted by",
+    'contact_advertiser' => 'Contact advertiser',
+    'send_message' => 'Send message',
+    'your_name'=> 'Your name',
+    'your_message' =>'Your message here',
+
+
     // job creation
 
     'post_a_job' => 'POST A JOB',
